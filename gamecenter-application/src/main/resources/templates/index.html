@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>Game Reviews</title>
+        <link rel="stylesheet" type="text/css" href="stylesheet.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script th:src="@{/gamescript.js}"></script>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    </head>
+    <body class="bg-secondary" style="color:white;">
+      <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#" style="color:red;">GameCenter</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/signup}" id="signup">Register <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/login}" id="login">Login <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+            <form class="form-inline my-2 my-lg-0" th:action="@{/searchUser}" method="post">
+              <ul class=navbar-nav>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/myprofile}" id="usernameVal"><span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active mr-3">
+                    <a class="nav-link" th:href="@{/logout}" id="logout">Logout<span class="sr-only">(current)</span></a>
+                </li>
+              </ul>
+              <input class="form-control mr-sm-2" type="search" placeholder="Search user..." aria-label="Search" th:field="${searchUser.username}">
+              <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </nav>
+        <script type="text/javascript">
+        var cname = "username"
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            var username = c.substring(name.length, c.length);
+          } else {
+            var username = "";
+          }
+        }
+           if (username != "") {
+               document.getElementById("usernameVal").innerHTML = username;
+               document.getElementById("usernameVal").style.visibility = "visible";
+               document.getElementById("logout").style.visibility = "visible";
+               document.getElementById("login").style.visibility = "hidden";
+               document.getElementById("signup").style.visibility = "hidden";
+            } else {
+               document.getElementById("usernameVal").style.visibility = "hidden";
+               document.getElementById("logout").style.visibility = "hidden";
+               document.getElementById("login").style.visibility = "visible";
+               document.getElementById("signup").style.visibility = "visible";
+            }
+        </script>
+      </header>
+        <div class="banner">
+            <h1 style="text-align: center;color:red;text-shadow:2px 2px 4px black;">Game Center</h1>
+        </div>
+        <p style="text-align: center">
+            <i>Rated #1 in video game recommendations!</i>
+        </p>
+        <br>
+        <center>
+          <form th:action="@{/searchGame}" method="post">
+            <input style="align-self: center" type="text" class="search" name="query" id="query" placeholder="Search for a Game" th:field="${searchGame.title}">
+            <button class="btn btn-light btn-sm" type="submit">Submit</button>
+          </form>
+        </center>
+        <br>
+        <div class="container-fluid">
+          <div class="row justify-content-center py-2">
+            <div class="col-3 mx-2 border border-dark"> <center><b><u>Top Rated Games [Male]: </u></b></center>
+              <div th:each="game,iterStat : ${topGamesMale}">
+                <b><div th:text="${iterStat.index + 1} + '. ' + ${game.title} + ' - ' + ${game.ratingAvg} + ' / 5'"></div></b>
+              </div>
+            </div>
+            <div class="col-3 mx-2 border border-dark"> <center><b><u>Top Rated Games: </u></b></center>
+              <div th:each="game,iterStat : ${topGames}">
+                <b><div th:text="${iterStat.index + 1} + '. ' + ${game.title} + ' - ' + ${game.ratingAvg} + ' / 5'"></div></b>
+              </div>
+            </div>
+            <div class="col-3 mx-2 border border-dark"> <center><b><u>Top Rated Games [Female]: </u></b></center>
+              <div th:each="game,iterStat : ${topGamesFemale}">
+                <b><div th:text="${iterStat.index + 1} + '. ' + ${game.title} + ' - ' + ${game.ratingAvg} + ' / 5'"></div></b>
+              </div>
+            </div>
+          </div>
+          <div class="row justify-content-center py-2">
+            <div class="col-5 mx-2 border border-dark"> <center><b><u>All Games: </u></b></center>
+              <div th:each="game,iterStat : ${allGames}">
+                <b><div th:text="${iterStat.index + 1} + '. ' + ${game.title}"></div></b>
+              </div>
+            </div>
+          </div>
+
+            </div>
+          </div>
+          <br>
+        <hr>
+    </body>
+
+</html>

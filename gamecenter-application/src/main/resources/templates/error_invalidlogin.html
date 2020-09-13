@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en-US">
+    <head>
+        <title>Error:Already Logged In</title>
+        <link rel="stylesheet" type="text/css" href="stylesheet.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+        <script src="gamescript.js"></script>
+        <meta content="text/html;charset=utf-8" http-equiv="Content-Type">
+    </head>
+    <body class="bg-secondary">
+      <header>
+        <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+            <a class="navbar-brand" href="#" style="color:red;">GameCenter</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                <ul class="navbar-nav">
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/}">Home <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/signup}" id="signup">Register <span class="sr-only">(current)</span></a>
+                    </li>
+                    <li class="nav-item active">
+                        <a class="nav-link" th:href="@{/login}" id="login">Login <span class="sr-only">(current)</span></a>
+                    </li>
+                </ul>
+            </div>
+            <form class="form-inline my-2 my-lg-0" th:action="@{/searchUser}" method="post">
+              <ul class=navbar-nav>
+                <li class="nav-item active">
+                    <a class="nav-link" th:href="@{/myprofile}" id="usernameVal"><span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active mr-3">
+                    <a class="nav-link" th:href="@{/logout}" id="logout">Logout<span class="sr-only">(current)</span></a>
+                </li>
+              </ul>
+              <input class="form-control mr-sm-2" type="search" placeholder="Search user..." aria-label="Search" th:field="${searchUser.username}">
+              <button class="btn btn-outline-light my-2 my-sm-0" type="submit">Search</button>
+            </form>
+        </nav>
+        <script type="text/javascript">
+        var cname = "username"
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+          var c = ca[i];
+          while (c.charAt(0) == ' ') {
+            c = c.substring(1);
+          }
+          if (c.indexOf(name) == 0) {
+            var username = c.substring(name.length, c.length);
+          } else {
+            var username = "";
+          }
+        }
+           if (username != "") {
+               document.getElementById("usernameVal").innerHTML = username;
+               document.getElementById("usernameVal").style.visibility = "visible";
+               document.getElementById("logout").style.visibility = "visible";
+               document.getElementById("login").style.visibility = "hidden";
+               document.getElementById("signup").style.visibility = "hidden";
+            } else {
+               document.getElementById("usernameVal").style.visibility = "hidden";
+               document.getElementById("logout").style.visibility = "hidden";
+               document.getElementById("login").style.visibility = "visible";
+               document.getElementById("signup").style.visibility = "visible";
+            }
+        </script>
+      </header>
+        <div class="banner">
+            <h1 style="text-align: center">Oops!</h1>
+            <h2 style="text-align: center" id="username"></h2>
+        </div>
+        <p style="text-align: center">
+           Invalid username/password.
+        </p>
+
+    </body>
+
+</html>
