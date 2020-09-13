@@ -1,5 +1,3 @@
-Names: Brandon Sutton, James Schobak, Landon Murdock
-
 How to compile/run code:
 1. Run the GameCenter-setup.py script.
 2. If the script has run correctly, the database should be set up and website should be running.
@@ -20,3 +18,5 @@ desired server.
 
 ------------------------------------------------------------------------------------------------------
 Thank you!
+
+By: Brandon Sutton
